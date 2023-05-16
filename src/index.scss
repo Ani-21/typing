@@ -1,0 +1,29 @@
+@import "bootstrap/scss/bootstrap";
+@import "constants.scss";
+
+body {
+  margin: 0;
+  background: $main;
+  font-family: $font-family-primary;
+  color: white;
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: $light-blue !important;
+  border-color: $light-blue !important;
+}
+
+.btn-primary:hover {
+  background-color: $blue !important;
+}
+
+p {
+  color: $grey;
+}
+
+.square-box {
+  max-width: 600px;
+  max-height: 600px;
+}
