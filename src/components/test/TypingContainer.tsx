@@ -1,30 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "@/api/axios";
-import Score from "../common/Score";
+import GeneratedWords from "./GeneratedWords";
+import WordsContainer from "./WordsContainer";
+import { UserInputs } from "./UserInputs";
+import { useStart } from "@/hooks/useStart";
+import Results from "../common/Results";
+import { useAppDispatch } from "@/redux/hooks";
+import { restart, setText } from "@/redux/slices/typingSlice";
+
+export type Start = "start" | "run" | "finish";
 
 const TypingContainer = () => {
-  const [text, setText] = useState();
+  const dispatch = useAppDispatch();
+
+  const { keyPressed, errors, totalTyped } = useStart();
+
+  console.log("ERRORS", errors);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios("?loremType=normal&type=words&number=100");
+      const response = await axios("?loremType=normal&type=words&number=5");
       const data = await response.data;
-      setText(data);
+      dispatch(setText(data[0]));
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div className="position-relative container square-box">
+    <div className="container square-box">
       <div className="row">
-        <div className="col">
-          <p>{text}</p>
-        </div>
-        <div className="col-3">
-          <Score title="Скорость" value="12" />
-          <Score title="Точность" value="99" />
-        </div>
+        <WordsContainer>
+          <GeneratedWords />
+          <UserInputs userInput={keyPressed} className="position-absolute" />
+        </WordsContainer>
+        <Results totalTyped={totalTyped} errors={errors} />
       </div>
+      <button className="btn btn-primary" onClick={() => dispatch(restart())}>
+        Restart
+      </button>
     </div>
   );
 };

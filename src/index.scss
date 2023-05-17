@@ -19,11 +19,20 @@ body {
   background-color: $blue !important;
 }
 
-p {
+p,
+.text {
   color: $grey;
 }
 
 .square-box {
   max-width: 600px;
   max-height: 600px;
+}
+
+.error {
+  color: $error;
+}
+
+.correct {
+  color: $green;
 }
