@@ -1,29 +1,25 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setUserInput } from "@/redux/slices/typingSlice";
-import { useState, useEffect, useRef } from "react";
+import { setUserInput, setCursor } from "@/redux/slices/typingSlice";
+import { useEffect } from "react";
 
-export const useKeyPress = (enabled: boolean) => {
+export const useKeyPress = () => {
   const dispatch = useAppDispatch();
   const keyPressed = useAppSelector((state) => state.typing.userInput);
-  const [cursor, setCursor] = useState(0);
-  const totalTyped = useRef(0);
+  const cursorPointer = useAppSelector((state) => state.typing.cursorPointer);
 
   useEffect(() => {
     const downHandler = ({ key }: KeyboardEvent) => {
-      if (!enabled) return;
-
       if (keyPressed !== key && key.length === 1) {
         dispatch(setUserInput(key));
-        setCursor((prev) => prev + 1);
-        totalTyped.current += 1;
+        dispatch(setCursor(cursorPointer + 1));
       }
     };
 
-    window.addEventListener("keyup", downHandler);
+    window.addEventListener("keydown", downHandler);
     return () => {
-      window.removeEventListener("keyup", downHandler);
+      window.removeEventListener("keydown", downHandler);
     };
-  }, [keyPressed, dispatch, enabled, cursor]);
+  }, [keyPressed, dispatch, cursorPointer]);
 
-  return { keyPressed, cursor, totalTyped: totalTyped.current };
+  return { keyPressed, cursorPointer };
 };

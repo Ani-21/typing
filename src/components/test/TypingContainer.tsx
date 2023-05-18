@@ -1,44 +1,36 @@
 import { useEffect } from "react";
-import axios from "@/api/axios";
 import GeneratedWords from "./GeneratedWords";
 import WordsContainer from "./WordsContainer";
 import { UserInputs } from "./UserInputs";
-import { useStart } from "@/hooks/useStart";
 import Results from "../common/Results";
-import { useAppDispatch } from "@/redux/hooks";
-import { restart, setText } from "@/redux/slices/typingSlice";
-
-export type Start = "start" | "run" | "finish";
+import { useKeyPress } from "@/hooks/useKeyPress";
+import { useAppSelector } from "@/redux/hooks";
+import { setErros } from "@/redux/slices/typingSlice";
 
 const TypingContainer = () => {
-  const dispatch = useAppDispatch();
+  const text = useAppSelector((state) => state.typing.text);
+  const userInput = useAppSelector((state) => state.typing.userInput);
+  const { keyPressed, cursorPointer } = useKeyPress();
 
-  const { keyPressed, errors, totalTyped } = useStart();
-
-  console.log("ERRORS", errors);
+  const areWordsFinished = cursorPointer === text.length;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios("?loremType=normal&type=words&number=5");
-      const data = await response.data;
-      dispatch(setText(data[0]));
-    };
-    fetchData();
-  }, [dispatch]);
+    if (areWordsFinished) {
+      const errors = userInput.split("").filter((char, i) => char !== text[i]);
+      setErros(errors.length);
+    }
+  }, [areWordsFinished]);
 
   return (
-    <div className="container square-box">
+    <main className="container py-3">
       <div className="row">
         <WordsContainer>
           <GeneratedWords />
           <UserInputs userInput={keyPressed} className="position-absolute" />
         </WordsContainer>
-        <Results totalTyped={totalTyped} errors={errors} />
       </div>
-      <button className="btn btn-primary" onClick={() => dispatch(restart())}>
-        Restart
-      </button>
-    </div>
+      <Results totalTyped={cursorPointer} />
+    </main>
   );
 };
 

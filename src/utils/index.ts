@@ -1,5 +1,5 @@
 export const countSpeed = (totalLength: number, time: number) => {
-  return totalLength / time;
+  return Math.trunc(totalLength / time);
 };
 
 export const countErrors = (actual: string, expected: string) => {
@@ -19,7 +19,6 @@ export const countErrors = (actual: string, expected: string) => {
 export const countAccuracy = (errors: number, totalLength: number) => {
   if (totalLength > 0) {
     const accurate = Math.abs(totalLength - errors);
-
     return Math.trunc((accurate / totalLength) * 100);
   }
 

@@ -1,5 +1,4 @@
 import { Character } from "../common/Character";
-import { AiOutlineMinus } from "react-icons/ai";
 import { useAppSelector } from "@/redux/hooks";
 
 type UserInputsProps = {
@@ -20,9 +19,6 @@ export const UserInputs = ({ userInput }: UserInputsProps) => {
           expected={text.split("")[index]}
         />
       ))}
-      <div className="d-inline-block h-5">
-        <AiOutlineMinus />
-      </div>
     </div>
   );
 };

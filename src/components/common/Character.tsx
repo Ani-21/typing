@@ -6,6 +6,7 @@ export const Character = ({
   expected: string;
 }) => {
   const isCorrect = actual === expected;
+
   return (
     <span className={`${isCorrect ? "correct" : "error"} `}>{expected}</span>
   );
