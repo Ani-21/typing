@@ -1,13 +1,25 @@
 export const filteredData = (data: string[]) => {
-  return data.toString().split(".");
+  return data.join("").split(".");
 };
 
 export const generateText = (textDB: string[]) => {
   let str = "";
+
   for (let i = 0; i < 3; i++) {
     const randomIndex = Math.round(Math.random() * textDB.length - 1);
     str += textDB[randomIndex] + ".";
   }
+  return str;
+};
+
+export const retriveWords = (textDB: string[], num: number) => {
+  const text = textDB.join("").split(" ");
+
+  let str = "";
+  for (let i = 0; i < num; i++) {
+    str += ` ${text[i]}`;
+  }
+
   return str;
 };
 

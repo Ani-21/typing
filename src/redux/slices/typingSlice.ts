@@ -34,6 +34,9 @@ const typingSlice = createSlice({
     setCursor: (state, action) => {
       state.cursorPointer = action.payload;
     },
+    setWordsNum: (state, action) => {
+      state.text = action.payload;
+    },
     increaseTime: (state) => {
       state.time += 1;
     },
@@ -57,6 +60,7 @@ export const {
   increaseTime,
   restart,
   setStart,
+  setWordsNum,
 } = typingSlice.actions;
 
 export default typingSlice.reducer;

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { restart, setText, setRandomText } from "@/redux/slices/typingSlice";
+import { useAppDispatch } from "@/redux/hooks";
+import { setText, setRandomText } from "@/redux/slices/typingSlice";
 import { TypingContainer } from "./TypingContainer";
-import { VscDebugRestart } from "react-icons/vsc";
+
 import { filteredData } from "@/utils";
+import { TestMode } from "../../components/TestMode";
 
 const TestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,10 +29,8 @@ const TestPage = () => {
   }, []);
 
   return (
-    <div className="py-5">
-      <button className="btn btn-primary" onClick={() => dispatch(restart())}>
-        <VscDebugRestart />
-      </button>
+    <div className="w-100">
+      <TestMode />
       {isLoading ? <h4>Loading</h4> : null}
       <TypingContainer />
     </div>

@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/redux/hooks";
 import { countAccuracy, countSpeed } from "@/utils";
-import Timer from "./Results/Timer";
+import Timer from "./Timer";
 
 const Results = () => {
   const errors = useAppSelector((state) => state.typing.errors);

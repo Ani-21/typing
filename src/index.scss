@@ -1,10 +1,17 @@
 @import "bootstrap/scss/bootstrap";
 @import "constants.scss";
 
+#root,
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background: $main;
   font-family: $font-family-primary;
+  font-size: 1.5rem;
   color: white;
 }
 
@@ -39,8 +46,7 @@ p,
 }
 
 .square-box {
-  max-width: 600px;
-  max-height: 600px;
+  height: 200px;
 }
 
 .error {

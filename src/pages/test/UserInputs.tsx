@@ -1,4 +1,4 @@
-import { Character } from "../common/Character";
+import { Character } from "../../components/common/Character";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import { useKeyPress } from "@/hooks/useKeyPress";
