@@ -3,19 +3,23 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { increaseTime } from "@/redux/slices/typingSlice";
 
 const Timer = () => {
+  const dispatch = useAppDispatch();
   const time = useAppSelector((state) => state.typing.time);
   const isStart = useAppSelector((state) => state.typing.isStart);
-  const isStartCondition = isStart;
-  const dispatch = useAppDispatch();
+
+  const gameState = isStart ? "IS RUNNING" : "GAME STOPED";
+
+  console.log(gameState);
 
   useEffect(() => {
-    if (!isStartCondition) return;
+    if (!isStart) return;
+
     const handleTimer = setInterval(() => {
       dispatch(increaseTime());
     }, 1000);
 
     return () => clearInterval(handleTimer);
-  }, [isStartCondition]);
+  }, [isStart]);
 
   return (
     <div className="px-3 align-items-center">

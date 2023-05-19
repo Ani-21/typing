@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import { useAppDispatch } from "@/redux/hooks";
-import { restart, setText } from "@/redux/slices/typingSlice";
-import TypingContainer from "./TypingContainer";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { restart, setText, setRandomText } from "@/redux/slices/typingSlice";
+import { TypingContainer } from "./TypingContainer";
 import { VscDebugRestart } from "react-icons/vsc";
+import { filteredData } from "@/utils";
 
 const TestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,9 +16,10 @@ const TestPage = () => {
         setIsLoading(true);
         const response = await axios("");
         const data = await response.data;
-        dispatch(setText(data[0]));
+        dispatch(setText(filteredData(data)));
+        dispatch(setRandomText(data[0]));
       } catch (err) {
-        console.log(err);
+        throw new Error("Something wen wrong");
       } finally {
         setIsLoading(false);
       }

@@ -8,6 +8,16 @@ body {
   color: white;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+a:hover,
+a:active,
+a:visited {
+  color: white !important;
+}
+
 .btn-primary,
 .btn-primary:active,
 .btn-primary:visited {
@@ -17,6 +27,10 @@ body {
 
 .btn-primary:hover {
   background-color: $blue !important;
+}
+
+.text-typing {
+  letter-spacing: 0.3rem;
 }
 
 p,

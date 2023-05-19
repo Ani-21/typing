@@ -2,18 +2,14 @@ import { useAppSelector } from "@/redux/hooks";
 import { countAccuracy, countSpeed } from "@/utils";
 import Timer from "./Results/Timer";
 
-type ScoreProps = {
-  totalTyped: number;
-  errors?: number;
-};
-
-const Results = ({ totalTyped }: ScoreProps) => {
+const Results = () => {
   const errors = useAppSelector((state) => state.typing.errors);
+  const text = useAppSelector((state) => state.typing.text);
+  const userInput = useAppSelector((state) => state.typing.userInput);
+  const time = useAppSelector((state) => state.typing.time);
 
-  const speed = countSpeed(totalTyped, 60);
-  const accuracy = countAccuracy(errors, totalTyped);
-
-  console.log(errors);
+  const speed = countSpeed(userInput.length, time);
+  const accuracy = countAccuracy(errors, text.length);
 
   return (
     <div className="d-flex justify-content-center align-items-center">

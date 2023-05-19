@@ -1,4 +1,18 @@
+export const filteredData = (data: string[]) => {
+  return data.toString().split(".");
+};
+
+export const generateText = (textDB: string[]) => {
+  let str = "";
+  for (let i = 0; i < 3; i++) {
+    const randomIndex = Math.round(Math.random() * textDB.length - 1);
+    str += textDB[randomIndex] + ".";
+  }
+  return str;
+};
+
 export const countSpeed = (totalLength: number, time: number) => {
+  if (time === 0) return 0;
   return Math.trunc(totalLength / time);
 };
 
