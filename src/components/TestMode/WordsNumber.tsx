@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectTextDB } from "@/redux/selectors";
 import { setWordsNum } from "@/redux/slices/typingSlice";
 import { retriveWords } from "@/utils";
 
 export const WordsNumber = () => {
   const dispatch = useAppDispatch();
-  const textDB = useAppSelector((state) => state.typing.textDB);
+  const textDB = useAppSelector(selectTextDB);
 
   return (
     <div className="d-flex gap-1">

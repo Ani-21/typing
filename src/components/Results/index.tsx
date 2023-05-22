@@ -1,12 +1,18 @@
 import { useAppSelector } from "@/redux/hooks";
+import {
+  selectErrors,
+  selectText,
+  selectTime,
+  selectUserInput,
+} from "@/redux/selectors";
 import { countAccuracy, countSpeed } from "@/utils";
-import Timer from "./Timer";
+import { Timer } from "./Timer";
 
-const Results = () => {
-  const errors = useAppSelector((state) => state.typing.errors);
-  const text = useAppSelector((state) => state.typing.text);
-  const userInput = useAppSelector((state) => state.typing.userInput);
-  const time = useAppSelector((state) => state.typing.time);
+export const Results = () => {
+  const errors = useAppSelector(selectErrors);
+  const text = useAppSelector(selectText);
+  const userInput = useAppSelector(selectUserInput);
+  const time = useAppSelector(selectTime);
 
   const speed = countSpeed(userInput.length, time);
   const accuracy = countAccuracy(errors, text.length);
@@ -16,7 +22,7 @@ const Results = () => {
       <Timer />
       <div className="px-3 align-items-center">
         <h2>{speed}</h2>
-        <span>chars/min</span>
+        <span>chars/sec</span>
       </div>
       <div className="px-3 align-items-center">
         <h2>{accuracy}</h2>
@@ -25,5 +31,3 @@ const Results = () => {
     </div>
   );
 };
-
-export default Results;

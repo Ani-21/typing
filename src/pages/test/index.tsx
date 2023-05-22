@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
-import axios from "@/api/axios";
 import { useAppDispatch } from "@/redux/hooks";
 import { setText, setRandomText } from "@/redux/slices/typingSlice";
+
+import axios from "@/api/axios";
 import { TypingContainer } from "./TypingContainer";
 
-import { filteredData } from "@/utils";
-import { TestMode } from "../../components/TestMode";
+import { TestMode } from "@/components/TestMode";
+import { Results } from "@/components/Results";
+import { Loader } from "@/components/common/Loader";
 
-const TestPage = () => {
+import { filteredData } from "@/utils";
+
+export const TestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -20,7 +24,7 @@ const TestPage = () => {
         dispatch(setText(filteredData(data)));
         dispatch(setRandomText(data[0]));
       } catch (err) {
-        throw new Error("Something wen wrong");
+        throw new Error("Something went wrong");
       } finally {
         setIsLoading(false);
       }
@@ -31,8 +35,8 @@ const TestPage = () => {
   return (
     <div className="w-100">
       <TestMode />
-      {isLoading ? <h4>Loading</h4> : null}
-      <TypingContainer />
+      <Results />
+      {isLoading ? <Loader /> : <TypingContainer />}
     </div>
   );
 };

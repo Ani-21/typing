@@ -1,3 +1,4 @@
+// data manipulation
 export const filteredData = (data: string[]) => {
   return data.join("").split(".");
 };
@@ -23,9 +24,10 @@ export const retriveWords = (textDB: string[], num: number) => {
   return str;
 };
 
-export const countSpeed = (totalLength: number, time: number) => {
+// metrics
+export const countSpeed = (totalTyped: number, time: number) => {
   if (time === 0) return 0;
-  return Math.trunc(totalLength / time);
+  return Math.trunc(totalTyped / time);
 };
 
 export const countErrors = (actual: string, expected: string) => {

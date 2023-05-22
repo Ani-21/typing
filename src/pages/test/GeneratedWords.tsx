@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/redux/hooks";
-import { memo } from "react";
+import { selectText } from "@/redux/selectors";
 
-export const GeneratedWords = memo(() => {
-  const text = useAppSelector((state) => state.typing.text);
+export const GeneratedWords = () => {
+  const text = useAppSelector(selectText);
   return <div className="text text-typing px-2">{text}</div>;
-});
+};

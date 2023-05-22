@@ -1,11 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectCursorointer, selectUserInput } from "@/redux/selectors";
 import { setUserInput, setCursor } from "@/redux/slices/typingSlice";
 import { useEffect } from "react";
 
 export const useKeyPress = () => {
   const dispatch = useAppDispatch();
-  const keyPressed = useAppSelector((state) => state.typing.userInput);
-  const cursorPointer = useAppSelector((state) => state.typing.cursorPointer);
+  const keyPressed = useAppSelector(selectUserInput);
+  const cursorPointer = useAppSelector(selectCursorointer);
 
   useEffect(() => {
     const downHandler = ({ key }: KeyboardEvent) => {

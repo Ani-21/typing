@@ -5,7 +5,6 @@ const initialState = {
   textDB: [],
   text: "",
   userInput: "",
-  keyPress: 0,
   cursorPointer: 0,
   errors: 0,
   time: 0,
@@ -40,12 +39,15 @@ const typingSlice = createSlice({
     increaseTime: (state) => {
       state.time += 1;
     },
+    decreaseTime: (state) => {
+      state.time -= 1;
+    },
     restart: (state) => {
-      const res = generateText(state.textDB);
+      const genetedText = generateText(state.textDB);
       return {
         ...initialState,
         textDB: state.textDB,
-        text: res,
+        text: genetedText,
       };
     },
   },
@@ -58,6 +60,7 @@ export const {
   setCursor,
   setErros,
   increaseTime,
+  decreaseTime,
   restart,
   setStart,
   setWordsNum,

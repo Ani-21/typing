@@ -1,18 +1,22 @@
-import { Character } from "../../components/common/Character";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
-import { useKeyPress } from "@/hooks/useKeyPress";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   setCursor,
   setErros,
   setStart,
   setUserInput,
 } from "@/redux/slices/typingSlice";
+import { selectText, selectUserInput } from "@/redux/selectors";
+
+import { Character } from "@/components/common/Character";
+import { Caret } from "@/components/common/Caret";
+
+import { useKeyPress } from "@/hooks/useKeyPress";
 
 export const UserInputs = () => {
   const dispatch = useAppDispatch();
-  const text = useAppSelector((state) => state.typing.text);
-  const userInput = useAppSelector((state) => state.typing.userInput);
+  const text = useAppSelector(selectText);
+  const userInput = useAppSelector(selectUserInput);
   const { cursorPointer } = useKeyPress();
 
   const isStarted = cursorPointer > 0;
@@ -28,7 +32,6 @@ export const UserInputs = () => {
     if (areWordsFinished) {
       const errors = userInput.split("").filter((char, i) => char !== text[i]);
       dispatch(setErros(errors.length));
-      // create handler: handleStop
       dispatch(setUserInput(""));
       dispatch(setCursor(0));
       dispatch(setStart(false));
@@ -46,6 +49,7 @@ export const UserInputs = () => {
           expected={text.split("")[index]}
         />
       ))}
+      <Caret />
     </div>
   );
 };
