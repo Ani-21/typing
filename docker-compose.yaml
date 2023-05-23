@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: typing_react_c
+    image: typing_react_i
+    build:
+      context: .
+    ports:
+      - 8080:80
